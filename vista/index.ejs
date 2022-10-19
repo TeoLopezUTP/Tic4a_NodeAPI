@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Inventario</title>
+    <!-- librerias bootstrap-->
+    <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css">
+</head>
+<body>
+     <!-- Estructura base bootstrap-->
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col">
+               <table id="tablaArticulos" class="table table-striped table-bordered" style="width:100%">
+               <thead>
+                 <tr>
+                    <th>ID</th>
+                    <th>DESCRIPCION</th>
+                    <th>PRECIO</th>                                
+                    <th>COUNT</th>                      
+                </tr>
+               </thead>
+               <tbody>
+            <% result.forEach((user)=> { %>
+                <tr>
+                    <th><%= user.idproducto %></th>
+                    <th><%= user.description %></th>
+                    <th><%= user.price %></th>                                
+                    <th><%= user.count %></th>    
+                </tr>
+             <% }); %>
+               </tbody>
+               </table> 
+            </div>
+        </div>
+    </div>
+
+  
+<script> 
+
+</script>
+</body>
+</html>
