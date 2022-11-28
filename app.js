@@ -5,6 +5,7 @@ const mysql = require('mysql')
 const cors = require('cors')
 const express = require('express')
 
+
 require ('dotenv').config();
 
 const app = express()
@@ -15,6 +16,38 @@ app.use(cors());
 let ejs = require('ejs');
 app.set('views','./vista')
 app.set('view engine','ejs')
+
+/*google */
+const {google} = require('googleapis')
+const view_id = "280776640";
+const scopes = "https://www.googleapis.com/auth/analytics.readonly";
+
+const jwt = new google.auth.JWT(
+  process.env.CLIENT_EMAIL,
+  null,
+  process.env.PRIVATE_KEY.replace(/\\n/g, "\n"),
+  scopes
+);
+
+async function getViews(){
+  try {
+    await jwt.authorize();
+
+    const response = await google.analytics("v3").data.ga.get({
+      auth: jwt,
+      ids: "ga:" + view_id,
+      "start-date": "30daysAgo",
+      "end-date": "today",
+      metrics: "ga:pageviews",
+    });
+
+    console.log(response);
+
+  } catch (err) {
+     console.log(err);
+  }
+};
+getViews()
 
 /*-----------Conexion con mysql()-------------- */
 const connection = mysql.createConnection({
